@@ -204,6 +204,43 @@ class Solution:
         :type s: str
         :rtype: str
         """
+        L = len(s)
+        Val = ''
+        flg1 = False
+
+        if Solution.iszichuan(s):
+            Val = s
+        else:
+            for k in range(1,L):
+                for i in range(k+1):
+                    aa = s[i:i+L-k]
+                    if Solution.iszichuan(aa):
+                        Val = aa
+                        flg1 = True
+                        break
+                if flg1:
+                    break
+
+        print(Val)
+        return Val
+
+    def iszichuan(a):
+        flg = True
+        num = len(a)
+        i = len(a) % 2
+        j = int(len(a)/2)
+
+        # flg = [False for v in range(j) if a[v] != a[num - 1 - v]]
+        for v in range(j):
+            if a[v] != a[num-1-v]:
+                flg = False
+
+        # print(flg)
+        return flg
+
+
+
+
 
 if __name__ == '__main__':
     newSolution = Solution()
@@ -217,4 +254,9 @@ if __name__ == '__main__':
     # nums1 = [1, 2,5,6]
     # nums2 = [3, 4]
     # newSolution.findMedianSortedArrays(nums1,nums2)
+
+    #Exe5
+    s = "civilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth"
+    newSolution.longestPalindrome(s)
+
 
