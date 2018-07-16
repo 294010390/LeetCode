@@ -198,65 +198,284 @@ For LeetCode
 # 输入: "babad"
 # 输出: "bab"
 # 注意: "aba"也是一个有效答案。
+# class Solution:
+#     def longestPalindrome(self, s):
+#         """
+#         :type s: str
+#         :rtype: str
+#         """
+#         L = len(s)
+#         Val = ''
+#         flg1 = False
+#
+#         if Solution.iszichuan(s):
+#             Val = s
+#         else:
+#             for k in range(1,L):
+#                 for i in range(k+1):
+#                     aa = s[i:i+L-k]
+#                     if Solution.iszichuan(aa):
+#                         Val = aa
+#                         flg1 = True
+#                         break
+#                 if flg1:
+#                     break
+#
+#         print(Val)
+#         return Val
+#
+#     def iszichuan(a):
+#         flg = True
+#         num = len(a)
+#         i = len(a) % 2
+#         j = int(len(a)/2)
+#
+#         # flg = [False for v in range(j) if a[v] != a[num - 1 - v]]
+#         for v in range(j):
+#             if a[v] != a[num-1-v]:
+#                 flg = False
+#
+#         # print(flg)
+#         return flg
+
+#Exe6
+# 将字符串 "PAYPALISHIRING" 以Z字形排列成给定的行数：
+#
+# P   A   H   N
+# A P L S I I G
+# Y   I   R
+# 之后从左往右，逐行读取字符："PAHNAPLSIIGYIR"
+#
+# 实现一个将字符串进行指定行数变换的函数:
+#
+# string convert(string s, int numRows);
+# 示例 1:
+#
+# 输入: s = "PAYPALISHIRING", numRows = 3
+# 输出: "PAHNAPLSIIGYIR"
+# class Solution:
+#     def convert(self, s, numRows):
+#         """
+#         :type s: str
+#         :type numRows: int
+#         :rtype: str
+#         """
+#         Line = 0
+#         New = {}
+#         Plus_flg = 1
+#         rs = []
+#
+#         if len(s) == 0:
+#             return ''
+#
+#         if numRows == 1:
+#             return s
+#
+#         New[0]=[s[0]]
+#
+#         for i in range(1,len(s)):
+#
+#             if Plus_flg == 1:
+#                 Line += 1
+#                 if Line not in New:
+#                     New[Line] = [s[i]]
+#                 else:
+#                     New[Line].append(s[i])
+#
+#                 if Line == numRows-1:
+#                     Plus_flg = 0
+#             else:
+#                 Line -= 1
+#                 New[Line].append(s[i])
+#
+#                 if Line == 0:
+#                     Plus_flg = 1
+#
+#         print(New)
+#         for k,v in New.items():
+#             rs += v
+#
+#         newrs = ''.join(rs)
+#         print(newrs)
+
+
+#Exe7
+# 给定一个 32 位有符号整数，将整数中的数字进行反转。
+#
+# 示例 1:
+#
+# 输入: 123
+# 输出: 321
+#  示例 2:
+#
+# 输入: -123
+# 输出: -321
+# 示例 3:
+#
+# 输入: 120
+# 输出: 21
+# 注意:
+#
+# 假设我们的环境只能存储 32 位有符号整数，其数值范围是 [−231,  231 − 1]。根据这个假设，如果反转后的整数溢出，则返回 0。
+#
+# class Solution:
+#     def reverse(self, x):
+#         """
+#         :type x: int
+#         :rtype: int
+#         """
+#
+#         if x>2**31-1 or x <-2**31:
+#             return 0
+#
+#         if x < 0:
+#             Val = -__class__.cal(self, -x)
+#         else:
+#             Val = __class__.cal(self, x)
+#         return Val
+#
+#     def cal(self,x):
+#         # Val = 0
+#         # L = len(str(x))
+#         # if L == 1:
+#         #     Val = x
+#         # else:
+#         #     for i in range(1,L):
+#         #         y = int(x % 10)
+#         #         x = int(x / 10)
+#         #
+#         #         Val += y*(10**(L-i))
+#         #         if i == L-1:
+#         #             Val += x
+#         #
+#         # if Val > 2 ** 31 - 1 or Val < -2 ** 31:
+#         #     Val =  0
+#         # print(Val)
+#         s = str(x)
+#         s = s[::-1]
+#
+#         Val = int(s)
+#
+#         if Val > 2 ** 31 - 1 or Val < -2 ** 31:
+#             Val =  0
+#         print(Val)
+#
+#         return Val
+
+# Exe8
+# 实现 atoi，将字符串转为整数。
+# 示例 1:
+#
+# 输入: "42"
+# 输出: 42
+# 示例 2:
+#
+# 输入: "   -42"
+# 输出: -42
+# 解释: 第一个非空白字符为 '-', 它是一个负号。
+#      我们尽可能将负号与后面所有连续出现的数字组合起来，最后得到 -42 。
+# 示例 3:
+#
+# 输入: "4193 with words"
+# 输出: 4193
+# 解释: 转换截止于数字 '3' ，因为它的下一个字符不为数字。
+# 示例 4:
+#
+# 输入: "words and 987"
+# 输出: 0
+# 解释: 第一个非空字符是 'w', 但它不是数字或正、负号。
+#      因此无法执行有效的转换。
+# 示例 5:
+#
+# 输入: "-91283472332"
+# 输出: -2147483648
+# 解释: 数字 "-91283472332" 超过 32 位有符号整数范围。
+#      因此返回 INT_MIN (−231) 。
+
 class Solution:
-    def longestPalindrome(self, s):
+    def myAtoi(self, str):
         """
-        :type s: str
-        :rtype: str
+        :type str: str
+        :rtype: int
         """
-        L = len(s)
-        Val = ''
-        flg1 = False
+        if len(str) == 0:
+            return 0
 
-        if Solution.iszichuan(s):
-            Val = s
+        li = list(str)
+        while(len(li) and li[0]==' '):
+            del li[0]
+        str = "".join(li)
+
+        if len(str) == 0:
+            return 0
+        print("current str = ",str)
+
+        if str[0].isdigit():
+            Val = __class__.ReNum(self, str)
+        elif str[0] == '-':
+            if len(str)>1 and str[1].isdigit():
+                Val = -__class__.ReNum(self,str[1:])
+            else:
+                Val = 0
+        elif str[0] == '+':
+            if len(str)>1 and str[1].isdigit():
+                Val = __class__.ReNum(self, str[1:])
+            else:
+                Val = 0
         else:
-            for k in range(1,L):
-                for i in range(k+1):
-                    aa = s[i:i+L-k]
-                    if Solution.iszichuan(aa):
-                        Val = aa
-                        flg1 = True
-                        break
-                if flg1:
-                    break
+            Val = 0
 
+        if Val >= 2 ** 31 - 1:
+            Val =  2 ** 31 - 1
+        elif Val <= -2 ** 31:
+            Val =  -2 ** 31
         print(Val)
+
+
+    def ReNum(self,str):
+        Val = 0
+        if len(str):
+            for i in range(len(str)):
+                if str[i].isdigit() == False:
+                    Val = str[:i]
+                    break
+                else:
+                    if i == len(str)-1:
+                        Val = str
+        Val = int(Val)
+        print("cueent Val is ",Val)
         return Val
-
-    def iszichuan(a):
-        flg = True
-        num = len(a)
-        i = len(a) % 2
-        j = int(len(a)/2)
-
-        # flg = [False for v in range(j) if a[v] != a[num - 1 - v]]
-        for v in range(j):
-            if a[v] != a[num-1-v]:
-                flg = False
-
-        # print(flg)
-        return flg
-
-
-
 
 
 if __name__ == '__main__':
     newSolution = Solution()
+
+    # Exe8
+    x = "42"
+    newSolution.myAtoi(x)
+
+    # Exe7
+    # x = 1534236469
+    # newSolution.reverse(x)
+
+    # Exe6
+    # s = "PAYPALISHIRING"
+    # numRows = 3
+    #
+    # newSolution.convert(s,numRows)
+
+    # Exe5
+    # s = "civilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth"
+    # newSolution.longestPalindrome(s)
+
+    # Exe4
+    # nums1 = [1, 2,5,6]
+    # nums2 = [3, 4]
+    # newSolution.findMedianSortedArrays(nums1,nums2)
+
     # res = newSolution.twoSum([-3,0,8,2,3,9],0)
     # print(res)
     # res = newSolution.twoSum([2, 7, 11, 15],9)
     # newSolution.lengthOfLongestSubstring('qwnfenpglqdq')
     # newSolution.lengthOfLongestSubstring('qwnfenpglqdq')
-
-    #Exe4
-    # nums1 = [1, 2,5,6]
-    # nums2 = [3, 4]
-    # newSolution.findMedianSortedArrays(nums1,nums2)
-
-    #Exe5
-    s = "civilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth"
-    newSolution.longestPalindrome(s)
-
 
