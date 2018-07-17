@@ -392,67 +392,231 @@ For LeetCode
 # 解释: 数字 "-91283472332" 超过 32 位有符号整数范围。
 #      因此返回 INT_MIN (−231) 。
 
+
+# class Solution:
+#     def myAtoi(self, str):
+#         """
+#         :type str: str
+#         :rtype: int
+#         """
+#         if len(str) == 0:
+#             return 0
+#
+#         li = list(str)
+#         while(len(li) and li[0]==' '):
+#             del li[0]
+#         str = "".join(li)
+#
+#         if len(str) == 0:
+#             return 0
+#         print("current str = ",str)
+#
+#         if str[0].isdigit():
+#             Val = __class__.ReNum(self, str)
+#         elif str[0] == '-':
+#             if len(str)>1 and str[1].isdigit():
+#                 Val = -__class__.ReNum(self,str[1:])
+#             else:
+#                 Val = 0
+#         elif str[0] == '+':
+#             if len(str)>1 and str[1].isdigit():
+#                 Val = __class__.ReNum(self, str[1:])
+#             else:
+#                 Val = 0
+#         else:
+#             Val = 0
+#
+#         if Val >= 2 ** 31 - 1:
+#             Val =  2 ** 31 - 1
+#         elif Val <= -2 ** 31:
+#             Val =  -2 ** 31
+#         print(Val)
+#
+#
+#     def ReNum(self,str):
+#         Val = 0
+#         if len(str):
+#             for i in range(len(str)):
+#                 if str[i].isdigit() == False:
+#                     Val = str[:i]
+#                     break
+#                 else:
+#                     if i == len(str)-1:
+#                         Val = str
+#         Val = int(Val)
+#         print("cueent Val is ",Val)
+#         return Val
+
+# Exe9
+# 判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
+#
+# 示例 1:
+#
+# 输入: 121
+# 输出: true
+# 示例 2:
+#
+# 输入: -121
+# 输出: false
+# 解释: 从左向右读, 为 -121 。 从右向左读, 为 121- 。因此它不是一个回文数。
+# 示例 3:
+#
+# 输入: 10
+# 输出: false
+# 解释: 从右向左读, 为 01 。因此它不是一个回文数。
+# class Solution:
+#     def isPalindrome(self, x):
+#         """
+#         :type x: int
+#         :rtype: bool
+#         """
+#         # Solution1
+#         # a = list(str(x))
+#         # b = a[::-1]
+#         #
+#         # print(a)
+#         # print(b)
+#         #
+#         # a = ''.join(a)
+#         # b = ''.join(b)
+#         #
+#         # if a == b:
+#         #     print("Same")
+#         # else:
+#         #     print("False")
+#
+#         # Solution2
+
+# Exe 11
+# 给定 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。
+# 画 n 条垂直线，使得垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。
+# 找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
 class Solution:
-    def myAtoi(self, str):
+    def maxArea(self, height):
         """
-        :type str: str
+        :type height: List[int]
         :rtype: int
         """
-        if len(str) == 0:
-            return 0
+        MaxS = 0
+        Cur_Max_xtmp = -1
 
-        li = list(str)
-        while(len(li) and li[0]==' '):
-            del li[0]
-        str = "".join(li)
+        # dicVal = {i:height[i] for i in range(len(height))}
+        dicVal = dict(zip(range(len(height)),height))
+        print(dicVal)
 
-        if len(str) == 0:
-            return 0
-        print("current str = ",str)
+        Cur_Max_x1 = height.index(max(height))
+        Cur_Max_y1 = dicVal.pop(height.index(max(height)))
 
-        if str[0].isdigit():
-            Val = __class__.ReNum(self, str)
-        elif str[0] == '-':
-            if len(str)>1 and str[1].isdigit():
-                Val = -__class__.ReNum(self,str[1:])
+        x_index = list(dicVal.keys())
+        v_index = list(dicVal.values())
+
+        index1 = v_index.index(max(dicVal.values()))  #返回字典中最大值的下标
+        k = x_index[index1] #返回字典中最大值的索引(key)
+
+        # max(dicVal.values())
+        # for k,v in dicVal.items():
+        #     if v == max(dicVal.values()):
+        #         break
+
+        Cur_Max_x2 = k
+        Cur_Max_y2 = dicVal.pop(k)
+
+        print(Cur_Max_y2)
+        print(dicVal)
+        print('*'*20)
+
+
+        MINY = min(Cur_Max_y2,Cur_Max_y1)
+        Xrange = abs(Cur_Max_x2-Cur_Max_x1)
+
+        S = MINY*Xrange
+
+        if S>MaxS:
+            MaxS = S
+
+        print(MaxS)
+
+        if len(dicVal) == 0:
+            return MaxS
+
+        for ii in range(len(dicVal)):
+            if Cur_Max_xtmp == -1:
+                Cur_Max_xtmp = Cur_Max_x1
+
+
+            dicVal = {k:v for k,v in dicVal.items() if k<min(Cur_Max_x2,Cur_Max_x1,Cur_Max_xtmp) or k>max(Cur_Max_x2,Cur_Max_x1,Cur_Max_xtmp) }
+            if len(dicVal)==0:
+                print("Current Max Val is ",MaxS)
+                return MaxS
+
+            print(dicVal)
+            print('*'*20)
+
+            # for k,v in dicVal.items():
+            #     if v == max(dicVal.values()):
+            #         break
+
+            x_index = list(dicVal.keys())
+            v_index = list(dicVal.values())
+            index1 = v_index.index(max(dicVal.values()))  # 返回字典中最大值的下标
+            k = x_index[index1] # 返回字典中最大值的索引(key)
+
+            Cur_Max_xtmp = k
+            Cur_Max_ytemp = dicVal.pop(k)
+
+            print(Cur_Max_ytemp)
+            print(dicVal)
+            print('*'*20)
+
+            MINY = min(Cur_Max_ytemp,MINY)
+            MINX = min(Cur_Max_x2,Cur_Max_x1)
+            MAXX = max(Cur_Max_x2,Cur_Max_x1)
+
+            if Cur_Max_xtmp < MINX :
+                 Xrange = abs(MAXX-Cur_Max_xtmp)
             else:
-                Val = 0
-        elif str[0] == '+':
-            if len(str)>1 and str[1].isdigit():
-                Val = __class__.ReNum(self, str[1:])
-            else:
-                Val = 0
-        else:
-            Val = 0
+                 Xrange = abs(MINX-Cur_Max_xtmp)
 
-        if Val >= 2 ** 31 - 1:
-            Val =  2 ** 31 - 1
-        elif Val <= -2 ** 31:
-            Val =  -2 ** 31
-        print(Val)
-
-
-    def ReNum(self,str):
-        Val = 0
-        if len(str):
-            for i in range(len(str)):
-                if str[i].isdigit() == False:
-                    Val = str[:i]
-                    break
+            S = MINY*Xrange
+            if S>MaxS:
+                MaxS = S
+                if Cur_Max_xtmp < MINX:
+                    Cur_Max_x1 = Cur_Max_xtmp
+                    Cur_Max_x2 = MAXX
                 else:
-                    if i == len(str)-1:
-                        Val = str
-        Val = int(Val)
-        print("cueent Val is ",Val)
-        return Val
+                    Cur_Max_x1 = MINX
+                    Cur_Max_x2 = Cur_Max_xtmp
+                print("*" * 30)
+                print("y = ",MINY)
+                print("x1 = ", MINX)
+                print("x2 = ", MAXX)
+                print("*" * 30)
 
+            print("Current S is ",S)
+            print("Loop count is ",ii)
+            print("Current maxS is ",MaxS)
+            # return MaxS
+        return MaxS
 
 if __name__ == '__main__':
     newSolution = Solution()
 
+    # Exe 11
+    # x = [ 1,11,2,3,2,3,4,5,1,2,2,12]
+    # x = [1,2,3,4,5,6,7,8,9,10]
+    x = [76,155,15,188,180,154,84,34,187,142,22,5,27,183,111,128,50,58,2,112,179,2,100,111,115,76,134,120,118,103,31,146,
+         58,198,134,38,104,170,25,92,112,199,49,140,135,160,20,185,171,23,98,150,177,198,61,92,26,147,164,144,51,196,42,
+         109,194,177,100,99,99,125,143,12,76,192,152,11,152,124,197,123,147,95,73,124,45,86,168,24,34,133,120,85,81,163,146,75,92,198,126,191]
+    Ma = newSolution.maxArea(x)
+    print("Get S is ",Ma)
+
+    # Exe9
+    # x = 12321
+    # newSolution.isPalindrome(x)
+
     # Exe8
-    x = "42"
-    newSolution.myAtoi(x)
+    # x = "42"
+    # newSolution.myAtoi(x)
 
     # Exe7
     # x = 1534236469
@@ -478,4 +642,5 @@ if __name__ == '__main__':
     # res = newSolution.twoSum([2, 7, 11, 15],9)
     # newSolution.lengthOfLongestSubstring('qwnfenpglqdq')
     # newSolution.lengthOfLongestSubstring('qwnfenpglqdq')
+
 
