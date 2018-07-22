@@ -15,34 +15,34 @@
     2.求列表L和Nums的并集，得出结果
 
 - 代码：
-    - 方式1实现 （执行时间：1840 ms）   
-
-        def twoSum(self, nums, target):
+    - 方式1实现 （执行时间：1840 ms）           
+    
+            def twoSum(self, nums, target):
             """
             :type nums: List[int]
             :type target: int
             :rtype: List[int]
             """
             newnums = [] # 用以生成新列表L
-            [newnums.append(nums[i]) for i in range(len(nums))] # 用以生成新列表L
-    
-            for i in nums: 
-                num1 = i
-                num2 = target - i
-                
-                if num1 in nums :
-    
-                    if num1 == num2: 
-                        newnums.remove(num1)
-    
-                    if num2 in newnums:
-                        if num1 == num2:
-                            return [nums.index(num1), newnums.index(num2)+1]
-                        else:
-                            return [nums.index(num1), nums.index(num2)]
+            [newnums.append(nums[i]) for i in range(len(nums))] # 用以生成新列表Lfor i in nums: 
+            num1 = i
+            num2 = target - i
+
+            if num1 in nums :
+
+                if num1 == num2: 
+                    newnums.remove(num1)
+
+                if num2 in newnums:
+                    if num1 == num2:
+                        return [nums.index(num1), newnums.index(num2)+1]
+                    else:
+                        return [nums.index(num1), nums.index(num2)]
     - 方式2实现：（执行时间：48 ms）
     
-        def twoSum(self, nums, target):
+        
+            
+            def twoSum(self, nums, target):
             """
             :type nums: List[int]
             :type target: int
